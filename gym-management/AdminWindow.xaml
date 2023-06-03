@@ -1,0 +1,283 @@
+﻿<Window x:Class="gym_management.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:convert="clr-namespace:gym_management.Converter"
+        xmlns:ctx="clr-namespace:gym_management.ViewModels"
+        xmlns:local="clr-namespace:gym_management"
+        mc:Ignorable="d"
+        Title="AdminWindow" Height="600" Width="800">
+    <Window.DataContext>
+        <ctx:AdminVM/>
+    </Window.DataContext>
+    <Grid Background="#333333">
+        <Grid.Resources>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="LabelStyleAdmin" TargetType="Label">
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="FontSize" Value="30" />
+                <Setter Property="Height" Value="50" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,31,0,0" />
+                <Setter Property="FontFamily" Value="Arial" />
+            </Style>
+
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="#005999" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="FontFamily" Value="Arial" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="5" Margin="11,0,0,0">
+                                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#003366" />
+                                    <Setter Property="BorderBrush" Value="#003366" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="#001A33" />
+                                    <Setter Property="BorderBrush" Value="#001A33" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="TextBoxStyle" TargetType="TextBox">
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="TextAlignment" Value="Center" />
+                <Setter Property="BorderBrush" Value="#FFFFFF" />
+                <Setter Property="Background" Value="#333333" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="Padding" Value="8" />
+            </Style>
+            <Style x:Key="DataGridStyle" TargetType="DataGrid">
+                <Setter Property="Background" Value="#333333" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="BorderBrush" Value="#FFFFFF" />
+                <Setter Property="RowBackground" Value="#444444" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            </Style>
+            <Style x:Key="DataGridRowHeaderStyle" TargetType="DataGridRowHeader">
+                <Setter Property="Background" Value="#444444" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Padding" Value="6" />
+            </Style>
+            <Style x:Key="DataGridCellStyle" TargetType="DataGridCell">
+                <Setter Property="Background" Value="#444444" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="8" />
+            </Style>
+            <Style x:Key="DataGridColumnHeaderStyle" TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="#444444" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+                <Setter Property="FontFamily" Value="Segoe UI" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Padding" Value="6" />
+                <Setter Property="BorderBrush" Value="#FFFFFF" />
+                <Setter Property="BorderThickness" Value="0,0,1,0" />
+            </Style>
+            <convert:SupplierConvert x:Key="supplierConvert"/>
+            <convert:EquipmentConvert x:Key="equipmentConvert"/>
+            <convert:UtilityConvert x:Key="utilityConvert"/>
+        </Grid.Resources>
+        <TextBlock Foreground="#FFFFFF" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30" FontFamily="Georgia" Height="51" Width="429" Margin="0,18,0,0">
+                Admin
+        </TextBlock>
+        <Grid Name="Buttons" Visibility="Visible">
+            <Button Name="MemberBtn" Content="Show members" Style="{StaticResource ButtonStyle}" Click="Button_Click" Margin="283,109,282,413"></Button>
+            <Button Name="AbBtn" Content="Show memberships" Style="{StaticResource ButtonStyle}" Click="AbBtn_Click" Margin="283,176,282,347"></Button>
+            <Button Name="FurnizorBtn" Content="Show suppliers" Style="{StaticResource ButtonStyle}" Click="FurnizorBtn_Click" Margin="282,242,283,281"></Button>
+            <Button Name="EchipamentBtn" Content="Show equipment" Style="{StaticResource ButtonStyle}" Click="EchipamentBtn_Click" Margin="282,308,282,212"></Button>
+            <Button Name="UtilsBtn" Content="Show utilities" Style="{StaticResource ButtonStyle}"  Click="UtilsBtn_Click" Margin="282,382,282,140"></Button>
+        </Grid>
+        <Button Name="GoBack" Content="Go Back" Visibility="Hidden" Style="{StaticResource ButtonStyle}" Click="GoBack_Click"  Margin="611,90,10,423"></Button>
+
+
+        <Grid Name="MemberWindow" Visibility="Hidden">
+            <Label Style="{StaticResource LabelStyle}" Content="Membership :" HorizontalAlignment="Left" Margin="29,76,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <ComboBox Name="Membership" SelectedItem="{Binding SelectedAb, Mode=TwoWay}" ItemsSource="{Binding AvailableMemberships, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="156,81,0,0" VerticalAlignment="Top" Width="229" FontSize="18" Height="35"></ComboBox>
+            <Button Style="{StaticResource ButtonStyle}" Name="AddMember" Content="Add Member" Visibility="Visible" ToolTipService.ShowOnDisabled="True"  Command="{Binding AddMember}" HorizontalAlignment="Left" Margin="29,150,0,0" VerticalAlignment="Top" FontSize="18" Width="132" Height="38"></Button>
+            <Button Content="Delete" Style="{StaticResource ButtonStyle}" IsEnabled="{Binding IsSelected}" Command="{Binding DeleteMember}" Margin="27,246,610,272"></Button>
+            <Button Style="{StaticResource ButtonStyle}" Name="EditMember" Content="Edit Member Membership" ToolTipService.ShowOnDisabled="True"  Command="{Binding EditMembership}" HorizontalAlignment="Left" Margin="27,201,0,0" VerticalAlignment="Top" FontSize="18" Width="224" Height="40"></Button>
+
+            <DataGrid Style="{StaticResource DataGridStyle}" SelectedItem="{Binding SelectedUserView, Mode=TwoWay}" ColumnWidth="0.25*" x:Name="StudentsGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path= UserViews, UpdateSourceTrigger=PropertyChanged}" Margin="27,312,35,0"  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Nume}"/>
+                    <DataGridTextColumn Header="Second Name" Binding="{Binding Prenume}"/>
+                    <DataGridTextColumn Header="Membership" Binding="{Binding Abonament}"/>
+                </DataGrid.Columns>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}" />
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource DataGridRowHeaderStyle}" />
+                </DataGrid.RowHeaderStyle>
+            </DataGrid>
+        </Grid>
+
+        <Grid Name="AbWindow" Visibility="Hidden">
+            <Label Style="{StaticResource LabelStyle}" Content="Membership :" HorizontalAlignment="Left" Margin="29,76,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="FirstNameStudent" Margin="170,80,0,0" TextWrapping="Wrap" Text="{Binding SelectedAb,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="224" Height="40" TextAlignment="Center" FontSize="22"/>
+            <Button Style="{StaticResource ButtonStyle}" Name="AddAb" Content="Add Membership" ToolTipService.ShowOnDisabled="True"  Command="{Binding AddAb}" HorizontalAlignment="Left" Margin="29,160,0,0" VerticalAlignment="Top" FontSize="18" Width="153" Height="28"></Button>
+            <Button Style="{StaticResource ButtonStyle}" Content="Delete" Command="{Binding DeleteAb}" Margin="27,249,593,272"></Button>
+
+
+            <DataGrid Style="{StaticResource DataGridStyle}" SelectedItem="{Binding SelectedAbonamentObj, Mode=TwoWay}" ColumnWidth="0.25*" AutoGenerateColumns="False" ItemsSource="{Binding Path= AllMemberships, UpdateSourceTrigger=PropertyChanged}" Margin="27,312,35,0"  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                </DataGrid.Columns>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}" />
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource DataGridRowHeaderStyle}" />
+                </DataGrid.RowHeaderStyle>
+            </DataGrid>
+        </Grid>
+
+        <Grid Name="FurnizorWindow" Visibility="Hidden">
+            <Label Style="{StaticResource LabelStyle}" Content="Supplier :" HorizontalAlignment="Left" Margin="29,76,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="SupplierBox" Margin="147,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Height="40" TextAlignment="Center" FontSize="22"/>
+            <Label Style="{StaticResource LabelStyle}" Content="Location :" HorizontalAlignment="Left" Margin="29,149,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="LocBox" Margin="147,149,0,0" TextWrapping="Wrap" Text="{Binding UpdatedLocation, Mode=TwoWay}" VerticalAlignment="Top" Width="224" Height="40" TextAlignment="Center" FontSize="22"/>
+
+            <Button Style="{StaticResource ButtonStyle}" Name="ContinueBtn" Content="Add supplier" ToolTipService.ShowOnDisabled="True" ToolTip="Username already exists OR all fields must be completed" Command="{Binding AddSupplier}" HorizontalAlignment="Left" Margin="411,76,0,0" VerticalAlignment="Top" FontSize="18" Width="147">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource supplierConvert}">
+                        <Binding ElementName="SupplierBox" Path="Text"/>
+                        <Binding ElementName="LocBox" Path="Text"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+            <Button Style="{StaticResource ButtonStyle}" Content="Delete" Command="{Binding DeleteSup}" Margin="27,244,623,272"></Button>
+            <Button Style="{StaticResource ButtonStyle}" Name="EditSup" Content="Edit Location" ToolTipService.ShowOnDisabled="True"  Command="{Binding EditSup}" HorizontalAlignment="Left" Margin="27,211,0,0" VerticalAlignment="Top" FontSize="18" Width="150" Height="28"></Button>
+
+
+            <DataGrid Style="{StaticResource DataGridStyle}" SelectedItem="{Binding SelectedSupplier, Mode=TwoWay}" ColumnWidth="0.25*" x:Name="SupplierGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path= AllSuppliers, UpdateSourceTrigger=PropertyChanged}" Margin="27,312,35,0"  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Location}"/>
+                </DataGrid.Columns>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}" />
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource DataGridRowHeaderStyle}" />
+                </DataGrid.RowHeaderStyle>
+            </DataGrid>
+        </Grid>
+
+        <Grid Name="EquipmentWindow" Visibility="Hidden">
+            <Label Style="{StaticResource LabelStyle}" Content="Equipment :" HorizontalAlignment="Left" Margin="29,76,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="Equipment" Margin="167,81,0,0" TextWrapping="Wrap" Text="{Binding SelectedAb,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="224" Height="30" TextAlignment="Center" FontSize="22"/>
+
+            <Label Style="{StaticResource LabelStyle}" Content="Price :" HorizontalAlignment="Left" Margin="29,131,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="Price" Margin="167,131,0,0" TextWrapping="Wrap" Text="{Binding SelectedAb,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="224" Height="40" TextAlignment="Center" FontSize="22"/>
+
+            <Label Style="{StaticResource LabelStyle}" Content="Muscles Worked :" HorizontalAlignment="Left" Margin="29,176,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Style="{StaticResource LabelStyle}" Content="Quantity :" HorizontalAlignment="Left" Margin="29,238,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="Quantity" Margin="167,238,0,0" TextWrapping="Wrap" Text="{Binding EditedQuantity,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="224" Height="40" TextAlignment="Center" FontSize="22"/>
+
+            <ComboBox SelectedItem="{Binding MusclesType, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Text="{Binding MusclesType}" Name="MusclesType" Margin="209,181,0,0" VerticalAlignment="Top" Width="140" FontSize="18">
+                <ComboBoxItem>Upper Body</ComboBoxItem>
+                <ComboBoxItem>Lower Body</ComboBoxItem>
+                <ComboBoxItem>Mixed</ComboBoxItem>
+                <ComboBoxItem>Caliesthenics</ComboBoxItem>
+            </ComboBox>
+
+            <Label Style="{StaticResource LabelStyle}" Content="Supplier :" HorizontalAlignment="Left" Margin="29,304,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <ComboBox Name="Supp" ItemsSource="{Binding AvailableSuppliers, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="162,302,0,0" VerticalAlignment="Top" Width="229" FontSize="18" Height="35"></ComboBox>
+
+            <Button Style="{StaticResource ButtonStyle}" Name="EquipmentBtn" Content="Add Equipment" Visibility="Visible" ToolTipService.ShowOnDisabled="True" Command="{Binding AddEquipment}" HorizontalAlignment="Left" Margin="453,176,0,0" VerticalAlignment="Top" FontSize="18" Width="142" Height="28">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource equipmentConvert}">
+                        <Binding ElementName="Equipment" Path="Text"/>
+                        <Binding ElementName="Price" Path="Text"/>
+                        <Binding ElementName="Quantity" Path="Text"/>
+                        <Binding ElementName="MusclesType" Path="Text"/>
+                        <Binding ElementName="Supp" Path="SelectionBoxItem"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+
+            <Button Style="{StaticResource ButtonStyle}" Content="Delete" Command="{Binding DeleteEq}" Margin="608,302,10,224"></Button>
+            <Button Style="{StaticResource ButtonStyle}" Name="EditEq" Content="Edit Quantity" ToolTipService.ShowOnDisabled="True"  Command="{Binding EditEqu}" HorizontalAlignment="Left" Margin="608,238,0,0" VerticalAlignment="Top" FontSize="18" Width="182" Height="47"></Button>
+
+
+            <DataGrid Style="{StaticResource DataGridStyle}" SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}" ColumnWidth="0.25*" x:Name="EqGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path= AllEquipments, UpdateSourceTrigger=PropertyChanged}" Margin="27,365,35,0"  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
+                </DataGrid.Columns>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}" />
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource DataGridRowHeaderStyle}" />
+                </DataGrid.RowHeaderStyle>
+            </DataGrid>
+        </Grid>
+
+        <Grid Name="UtilitatiWindow" Visibility="Hidden">
+            <Label Style="{StaticResource LabelStyle}" Content="Month :" HorizontalAlignment="Left" Margin="29,74,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="Month" Margin="128,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Height="35" TextAlignment="Center" FontSize="22"/>
+
+            <Label Style="{StaticResource LabelStyle}" Content="Rent :" HorizontalAlignment="Left" Margin="29,132,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="Payment" Margin="128,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Height="40" TextAlignment="Center" FontSize="22"/>
+
+            <Label Style="{StaticResource LabelStyle}" Content="Utility :" HorizontalAlignment="Left" Margin="29,185,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.446,1.66"/>
+            <TextBox Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="Utility" Margin="128,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="224" Height="35" TextAlignment="Center" FontSize="22"/>
+
+            <Button Style="{StaticResource ButtonStyle}" Name="UtilBtn" Content="Add Utility" Visibility="Visible" ToolTipService.ShowOnDisabled="True" Command="{Binding AddUtility}" HorizontalAlignment="Left" Margin="400,81,0,0" VerticalAlignment="Top" FontSize="18" Width="161" Height="65">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource utilityConvert}">
+                        <Binding ElementName="Month" Path="Text"/>
+                        <Binding ElementName="Payment" Path="Text"/>
+                        <Binding ElementName="Utility" Path="Text"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+
+            <Button Style="{StaticResource ButtonStyle}" Content="Delete" Command="{Binding DeleteUtil}" Margin="608,302,10,224"></Button>
+
+
+            <DataGrid Style="{StaticResource DataGridStyle}" SelectedItem="{Binding SelectedUtil, Mode=TwoWay}" ColumnWidth="0.25*" x:Name="UtilGrid" AutoGenerateColumns="False" ItemsSource="{Binding Path= AllUtils, UpdateSourceTrigger=PropertyChanged}" Margin="27,365,35,0"  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Month" Binding="{Binding Month}"/>
+                    <DataGridTextColumn Header="Rent" Binding="{Binding Rent}"/>
+                    <DataGridTextColumn Header="Utility" Binding="{Binding Util}"/>
+                </DataGrid.Columns>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource DataGridColumnHeaderStyle}" />
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource DataGridRowHeaderStyle}" />
+                </DataGrid.RowHeaderStyle>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Window>
