@@ -133,6 +133,7 @@ namespace gym_management.ViewModels
             er.ModifyEq(SelectedEquipment, EditedQuantity);
             AllEquipments.Add(new Equipment() { Id = SelectedEquipment.Id, Name = SelectedEquipment.Name, Muscle = SelectedEquipment.Muscle, Price = SelectedEquipment.Price, Quantity = int.Parse(EditedQuantity), IdFurnizor = SelectedEquipment.IdFurnizor });
             AllEquipments.Remove(SelectedEquipment);
+            EditedQuantity = String.Empty;
         }
 
         private void DelEq()

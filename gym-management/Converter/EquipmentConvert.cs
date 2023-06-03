@@ -16,22 +16,24 @@ namespace gym_management.Converter
         SupplierRepo er = new SupplierRepo();
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            ObservableCollection<Supplier> equipment = new ObservableCollection<Supplier>();
-            equipment = er.GetAllSuppliers();
             if (values[0] != null && values[1] != null && values[2] != null && values[3] != null && values[4] != null)
             {
+                ObservableCollection<Supplier> equipment = new ObservableCollection<Supplier>();
+                equipment = er.GetAllSuppliers();
                 int id = 0;
                 foreach (var sup in equipment)
                     if (sup.Name == values[4].ToString())
+                    {
                         id = sup.Id;
-                return new Equipment()
-                {
-                    Name = values[0].ToString(),
-                    Price = int.Parse(values[1].ToString()),
-                    Muscle = values[3].ToString(),
-                    Quantity = int.Parse(values[2].ToString()),
-                    IdFurnizor = id,
-                };
+                        return new Equipment()
+                        {
+                            Name = values[0].ToString(),
+                            Price = int.Parse(values[1].ToString()),
+                            Muscle = values[3].ToString(),
+                            Quantity = int.Parse(values[2].ToString()),
+                            IdFurnizor = id,
+                        };
+                    }
             }
             return null;
         }

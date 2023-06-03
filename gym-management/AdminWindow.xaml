@@ -190,7 +190,7 @@
             </DataGrid>
         </Grid>
 
-        <Grid Name="EquipmentWindow" Visibility="Hidden">
+        <Grid Name="EquipmentWindow" Visibility="Visible">
             <Label Style="{StaticResource LabelStyle}" Content="Equipment :" HorizontalAlignment="Left" Margin="29,76,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <TextBox HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="Equipment" Margin="167,81,0,0" TextWrapping="Wrap" Text="{Binding SelectedAb,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="224" Height="30" TextAlignment="Center" FontSize="22"/>
 
